@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+<<<<<<< HEAD
     private float verticalInput;
     private float horizontalInput;
 
@@ -16,11 +17,18 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+=======
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+>>>>>>> fd1e63d9e82d29043e99efece0258e2aaa9b10e0
     }
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
 
@@ -34,5 +42,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+=======
+        
+>>>>>>> fd1e63d9e82d29043e99efece0258e2aaa9b10e0
     }
 }
