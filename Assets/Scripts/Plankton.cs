@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Plankton : MonoBehaviour
 {
-    private float waterSpeed = 0.1f;
+    private float waterSpeed = 2.0f;
     private float waterPower = 0.1f;
 
     private float cameraHeight;
@@ -22,57 +22,54 @@ public class Plankton : MonoBehaviour
         Camera camera = Camera.main;
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Jellyfish");
-        cameraWidth = camera.orthographicSize * 2.0f;
-        cameraHeight = cameraWidth / camera.aspect;
+        cameraHeight = camera.orthographicSize * 2.0f;
+        cameraWidth = cameraHeight * camera.aspect;
     }
 
     // Update is called once per frame
     void Update()
     {
         StartCoroutine(RandomMovement());
-        xRange = cameraWidth;
-        zRange = cameraHeight;
+        xRange = cameraWidth / 2;
+        zRange = cameraHeight / 2;
         enemyRb.velocity = Vector3.ClampMagnitude(enemyRb.velocity, maxSpeed);
     }
 
     IEnumerator RandomMovement()
     {
-        while(true)
+        while(StayInBounds())
         {
-            yield return new WaitForSeconds(waterSpeed);
-            StayInBounds();
             enemyRb.AddForce(GenerateRandomPower(), 0, GenerateRandomPower(), ForceMode.Impulse);
+            yield return new WaitForSeconds(waterSpeed);
         }
+        enemyRb.velocity = Vector3.zero;
     }
     
     float GenerateRandomPower()
     {
         return Random.Range(-waterPower, waterPower);
     }
-    void StayInBounds()
+    bool StayInBounds()
     {
-        if (enemyRb.transform.position.x > player.transform.position.x + xRange)
+        if (enemyRb.transform.position.x > player.transform.position.x + xRange + (transform.localScale.x / 2))
         {
-            //transform.position = new Vector3(player.transform.position.x + xRange, 0, transform.position.z);
-            enemyRb.velocity = Vector3.zero;
+            return false;
         }
 
-        if (enemyRb.transform.position.x < player.transform.position.x - xRange)
+        if (enemyRb.transform.position.x < player.transform.position.x - xRange - (transform.localScale.x / 2))
         {
-            //transform.position = new Vector3(player.transform.position.x - xRange, 0, transform.position.z);
-            enemyRb.velocity = Vector3.zero;
+            return false;
         }
 
-        if (enemyRb.transform.position.z > player.transform.position.z + zRange)
+        if (enemyRb.transform.position.z > player.transform.position.z + zRange + (transform.localScale.z / 2))
         {
-            //transform.position = new Vector3(player.transform.position.x, 0, transform.position.z + zRange);
-            enemyRb.velocity = Vector3.zero;
+            return false;
         }
 
-        if (enemyRb.transform.position.z < player.transform.position.z - zRange)
+        if (enemyRb.transform.position.z < player.transform.position.z - zRange - (transform.localScale.z / 2))
         {
-            //transform.position = new Vector3(player.transform.position.x, 0, transform.position.z - zRange);
-            enemyRb.velocity = Vector3.zero;
+            return false;
         }
+        return true;
     }
 }
