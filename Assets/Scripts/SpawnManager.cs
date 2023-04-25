@@ -34,7 +34,7 @@ public class SpawnManager : MonoBehaviour
             SpawnEnemyWave(waveNumber);
             waveNumber++;
         }
-        spawnRangeX = player.transform.position.x + cameraWidth;
+        spawnRangeX = cameraWidth;
         spawnRangeZ = cameraHeight;
     }
 
