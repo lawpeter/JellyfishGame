@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
 
     public float speed = 1.0f;
+
+    private GameManager gameManager;
     
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Plankton"))
         {
             Destroy(other.gameObject);
+            gameManager.UpdateScore();
         }
 
     }
