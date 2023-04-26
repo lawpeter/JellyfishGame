@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     {
         score++;
         xp += score;
+        levelText.text = "Level: " + level;
     }
 
 }

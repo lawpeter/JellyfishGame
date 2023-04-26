@@ -13,7 +13,12 @@ public class PlayerController : MonoBehaviour
     public float speed = 1.0f;
 
     private GameManager gameManager;
-    
+
+    public GameObject[] planktons;
+
+    public float distance;
+    public float tempDistance;
+    public GameObject closestPlankton;
 
     // Start is called before the first frame update
     void Start()
@@ -41,5 +46,21 @@ public class PlayerController : MonoBehaviour
             gameManager.UpdateScore();
         }
 
+    }
+
+    void DetermineRotation()
+    {
+        planktons = GameObject.FindGameObjectsWithTag("Plankton");
+        distance = Vector3.Distance(planktons[0].transform.position, playerRb.position);
+        for (int i = 0; i < planktons.Length; i++)
+        {
+            tempDistance = Vector3.Distance(planktons[i].transform.position, playerRb.position);
+            if (tempDistance < distance)
+            {
+                distance = tempDistance;
+                closestPlankton = planktons[i];
+            }
+        }
+        transform.LookAt(playerRb.position);
     }
 }
