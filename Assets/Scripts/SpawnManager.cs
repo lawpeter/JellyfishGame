@@ -18,9 +18,9 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SpawnEnemyWave(waveNumber);
         player = GameObject.Find("Jellyfish");
         Camera camera = Camera.main;
-        SpawnEnemyWave(waveNumber);
         cameraHeight = camera.orthographicSize;
         cameraWidth = cameraHeight * camera.aspect;
     }

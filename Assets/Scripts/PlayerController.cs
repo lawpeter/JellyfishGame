@@ -14,11 +14,12 @@ public class PlayerController : MonoBehaviour
 
     private GameManager gameManager;
 
-    public GameObject[] planktons;
+    private GameObject[] planktons;
 
-    public float distance;
-    public float tempDistance;
-    public GameObject closestPlankton;
+    private float distance;
+    private float tempDistance;
+    private GameObject closestPlankton;
+    private Transform closestPlanktonTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +35,10 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
 
-        transform.Translate(Vector3.forward * Time.deltaTime * verticalInput * speed);
-        transform.Translate(Vector3.right * Time.deltaTime * horizontalInput * speed);
+        transform.Translate(Vector3.forward * Time.deltaTime * verticalInput * speed, Space.World);
+        transform.Translate(Vector3.right * Time.deltaTime * horizontalInput * speed, Space.World);
+
+        DetermineRotation();
     }
 
     void OnTriggerEnter(Collider other)
@@ -52,6 +55,8 @@ public class PlayerController : MonoBehaviour
     {
         planktons = GameObject.FindGameObjectsWithTag("Plankton");
         distance = Vector3.Distance(planktons[0].transform.position, playerRb.position);
+        closestPlankton = planktons[0];
+        closestPlanktonTransform = closestPlankton.transform;
         for (int i = 0; i < planktons.Length; i++)
         {
             tempDistance = Vector3.Distance(planktons[i].transform.position, playerRb.position);
@@ -59,8 +64,9 @@ public class PlayerController : MonoBehaviour
             {
                 distance = tempDistance;
                 closestPlankton = planktons[i];
+                closestPlanktonTransform = closestPlankton.transform;
             }
         }
-        transform.LookAt(playerRb.position);
+        transform.LookAt(closestPlanktonTransform);
     }
 }
