@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int xp;
     public int level;
     public TextMeshProUGUI levelText;
+    private Camera camera = Camera.main;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,4 +56,8 @@ public class GameManager : MonoBehaviour
         levelText.text = "Level: " + level;
     }
 
+    void CameraFollowPlayer()
+    {
+        camera.transform = Jellyfish.transform;
+    }
 }
