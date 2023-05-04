@@ -54,12 +54,12 @@ public class PlayerController : MonoBehaviour
     void DetermineRotation()
     {
         planktons = GameObject.FindGameObjectsWithTag("Plankton");
-        tempDistance = Vector3.Distance(planktons[0].transform.position, playerRb.position);
-        distance = Vector3.Distance(planktons[0].transform.position, playerRb.position);
+        distance = 10000;
         closestPlankton = planktons[0];
         closestPlanktonTransform = closestPlankton.transform;
         for (int i = 0; i < planktons.Length; i++)
         {
+            tempDistance = Vector3.Distance(planktons[i].transform.position, playerRb.position);
             if (tempDistance < distance)
             {
                 distance = tempDistance;
