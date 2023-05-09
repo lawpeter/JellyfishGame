@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioClip boop;
 
     private float verticalInput;
     private float horizontalInput;
@@ -20,11 +21,13 @@ public class PlayerController : MonoBehaviour
     private float tempDistance;
     private GameObject closestPlankton;
     private Transform closestPlanktonTransform;
+    private AudioSource playerAudio;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(other.gameObject);
             gameManager.UpdateScore();
+            playerAudio.PlayOneShot(boop, 1.0f);
         }
 
     }
