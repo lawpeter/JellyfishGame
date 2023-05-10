@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(other.gameObject);
             gameManager.UpdateScore();
-            playerAudio.PlayOneShot(boop, 1.0f);
+            playerAudio.Play(0);
         }
 
     }
