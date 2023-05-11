@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     public int xp;
     public int level;
     public TextMeshProUGUI levelText;
+    public Button speedButton;
+    public Button sizeButton;
+
     //private Camera camera = Camera.main;
     // Start is called before the first frame update
     void Start()
@@ -46,6 +50,9 @@ public class GameManager : MonoBehaviour
             score = 0;
             xpMultiplier /= levelScale;
             level++;
+            speedButton.gameObject.SetActive(true);
+            sizeButton.gameObject.SetActive(true);
+            xpRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, xpStartingWidth);
         }
     }
 
@@ -54,10 +61,5 @@ public class GameManager : MonoBehaviour
         score++;
         xp += score;
         levelText.text = "Level: " + level;
-    }
-
-    void CameraFollowPlayer()
-    {
-        //.transform = Jellyfish.transform;
     }
 }
